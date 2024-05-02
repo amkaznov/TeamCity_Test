@@ -1,7 +1,5 @@
 package com.example.teamcity.api.requests.checked;
 
-
-import com.example.teamcity.api.spec.Specifications;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;

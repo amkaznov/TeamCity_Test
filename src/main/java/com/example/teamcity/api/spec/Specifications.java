@@ -1,7 +1,6 @@
 package com.example.teamcity.api.spec;
 
 import com.example.teamcity.api.config.Config;
-import com.example.teamcity.api.models.SuperUser;
 import com.example.teamcity.api.models.User;
 import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.builder.RequestSpecBuilder;
