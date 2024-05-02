@@ -1,0 +1,148 @@
+### Generated test data
+@projectId = 55
+@buildTypeId = abcdd
+
+### 0. Generate auth token
+GET http://172.28.224.1:8111/authenticationTest.html?csrf
+Accept: application/json
+Authorization: Basic admin 12345678
+
+> {%
+    client.global.set("token", response.body);
+%}
+
+### 1. Create project
+POST http://172.28.224.1:8111/app/rest/projects
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin 12345679
+X-TC-CSRF-Token: {{token}}
+
+{
+  "parentProject": {
+    "locator": "_Root"
+  },
+  "name": "{{projectId}}",
+    "id": "assasas",
+  "copyAllAssociatedSettings": true
+}
+
+### 2. Create build configuration
+POST http://172.28.224.1:8111/app/rest/buildTypes
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin 12345678
+X-TC-CSRF-Token: {{token}}
+
+{
+  "id": "{{buildTypeId}}",
+  "name": "Print hi 1",
+  "project": {
+    "id": "{{projectId}}"
+  },
+  "steps": {
+    "step": [
+      {
+        "name": "Print",
+        "type": "simpleRunner",
+        "properties": {
+          "property": [
+            {
+              "name": "script.content",
+              "value": "echo 'Hello World!'"
+            },
+            {
+              "name": "teamcity.step.mode",
+              "value": "default"
+            },
+            {
+              "name": "use.custom.script",
+              "value": "true"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+
+### 3. Run build
+POST http://172.28.224.1:8111/app/rest/buildQueue
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin 12345678
+X-TC-CSRF-Token: {{token}}
+
+{
+  "buildType": {
+    "id": "{{buildTypeId}}"
+  }
+}
+
+### 4. Check build status
+GET http://172.28.224.1:8111/app/rest/buildTypes/id:{{buildTypeId}}/builds
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin 12345678
+X-TC-CSRF-Token: {{token}}
+
+### 5. Check Server Authentication Settings
+GET http://172.28.224.1:8111/app/rest/server/authSettings
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin 12345678
+X-TC-CSRF-Token: {{token}}
+
+### 6. Set Server Authentication Settings
+PUT http://172.28.224.1:8111/app/rest/server/authSettings
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin 12345678
+X-TC-CSRF-Token: {{token}}
+
+{
+  "allowGuest": false,
+  "guestUsername": "guest",
+  "welcomeText": "Hi dear friend",
+  "collapseLoginForm": false,
+  "perProjectPermissions": false,
+  "emailVerification": false,
+  "modules": {
+    "module": [
+      {
+        "name": "Default",
+        "properties": {
+          "property": [
+            {
+              "name": "usersCanResetOwnPasswords",
+              "value": "true"
+            },
+            {
+              "name": "usersCanChangeOwnPasswords",
+              "value": "true"
+            },
+            {
+              "name": "freeRegistrationAllowed",
+              "value": "false"
+            }
+          ],
+          "count": 3
+        }
+      },
+      {
+        "name": "Token-Auth",
+        "properties": {
+          "property": [],
+          "count": 0
+        }
+      },
+      {
+        "name": "HTTP-Basic",
+        "properties": {
+          "property": [],
+          "count": 0
+        }
+      }
+    ]
+  }
+}
