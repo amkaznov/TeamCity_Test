@@ -1,1 +1,0 @@
-{"uuid":"01a2f8af-8d05-40c0-949f-3c288f00080e","name":"Default Suite","children":["6f837fa7-11e9-49a3-a251-91c22926bfc9"],"befores":[{"name":"setAuthSetting","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1714491641817,"stop":1714491645200}],"afters":[],"start":1714491641767,"stop":1714491649659}
