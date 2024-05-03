@@ -27,12 +27,6 @@ public class TestDataGenerator {
                 .username(RandomData.getString())
                 .password(RandomData.getString())
                 .email(RandomData.getString() + "@gmail.com")
-//                .roles(Roles.builder()
-//                        .role(Arrays.asList(Role.builder()
-//                                        .roleId("SYSTEM_ADMIN")
-//                                        .scope("g")
-//                                .build()))
-//                        .build())
                 .build();
 
         var project = NewProjectDescription
@@ -68,8 +62,8 @@ public class TestDataGenerator {
 
     }
 
-    public static AuthSettings generateAuthSetting(){
-        return AuthSettings.builder()
+    public static AuthData generateAuthSetting(){
+        var authSettings = AuthSettings.builder()
                 .allowGuest(false)
                 .guestUsername("guest")
                 .welcomeText("Hi dear friend")
@@ -85,6 +79,10 @@ public class TestDataGenerator {
                         new Module("Token-Auth", new Properties(List.of(), 0)),
                         new Module("HTTP-Basic", new Properties(List.of(), 0))
                 )))
+                .build();
+
+        return AuthData.builder()
+                .authSettings(authSettings)
                 .build();
     }
 

@@ -1,10 +1,6 @@
 package com.example.teamcity.api.generators;
 
-import com.example.teamcity.api.models.AuthSettings;
-import com.example.teamcity.api.models.BuildType;
-import com.example.teamcity.api.models.NewProjectDescription;
-import com.example.teamcity.api.models.SuperUser;
-import com.example.teamcity.api.models.User;
+import com.example.teamcity.api.models.*;
 import com.example.teamcity.api.requests.unchecked.AuthSettingsUnchecked;
 import com.example.teamcity.api.requests.unchecked.ProjectUnchecked;
 import com.example.teamcity.api.requests.unchecked.UserUnchecked;
@@ -19,27 +15,15 @@ public class TestData {
     private User user;
     private SuperUser superUser;
     private BuildType buildType;
-
     private NewProjectDescription project;
-
-
-    public void makeAuthSettings(){
-        var perProjectPermissionsValue = new AuthSettingsUnchecked(Specifications.getSpec().superUserSpec())
-                .get(null)
-                .then().assertThat().statusCode(HttpStatus.SC_OK)
-                .extract().jsonPath().getBoolean("perProjectPermissions");
-
-        if (!perProjectPermissionsValue){
-            AuthSettings authSettings = TestDataGenerator.generateAuthSetting();
-            new AuthSettingsUnchecked(Specifications.getSpec().superUserSpec())
-                    .update(authSettings)
-                    .then().assertThat().statusCode(HttpStatus.SC_OK);
-        }
-    }
 
     public void delete(){
         var spec =Specifications.getSpec().superUserSpec();
-        new ProjectUnchecked(spec).delete(project.getId());
-        new UserUnchecked(spec).delete(user.getUsername());
+        if (UserUnchecked.isCreated){
+            new UserUnchecked(spec).delete(user.getUsername());
+        }
+        if (ProjectUnchecked.isCreated){
+            new ProjectUnchecked(spec).delete(project.getId());
+        }
     }
 }

@@ -11,6 +11,10 @@ import static io.restassured.RestAssured.given;
 public class ProjectUnchecked extends Request implements CrudInterface {
 
     private static final String PROJECT_ENDPOINT = "/app/rest/projects";
+    public static Boolean isCreated = false;
+    public void setIsCreated(){
+        isCreated=true;
+    }
 
     public ProjectUnchecked(RequestSpecification spec) {
         super(spec);
@@ -19,6 +23,7 @@ public class ProjectUnchecked extends Request implements CrudInterface {
 
     @Override
     public Response create(Object obj) {
+        setIsCreated();
         return given()
                 .spec(spec)
                 .body(obj)

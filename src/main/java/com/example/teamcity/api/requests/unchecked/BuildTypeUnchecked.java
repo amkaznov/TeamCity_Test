@@ -10,6 +10,10 @@ import static io.restassured.RestAssured.given;
 public class BuildTypeUnchecked extends Request implements CrudInterface {
 
     public static final String BUILD_TYPES_ENDPOINT = "/app/rest/buildTypes";
+    public static Boolean isCreated = false;
+    public void setIsCreated(){
+        isCreated=true;
+    }
 
     public BuildTypeUnchecked(RequestSpecification spec) {
         super(spec);
@@ -17,6 +21,7 @@ public class BuildTypeUnchecked extends Request implements CrudInterface {
 
     @Override
     public Response create(Object obj) {
+        setIsCreated();
         return given().spec(spec).body(obj)
                 .post(BUILD_TYPES_ENDPOINT);
     }

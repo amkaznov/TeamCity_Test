@@ -20,8 +20,8 @@ public class BaseApiTest extends BaseTest{
 
     @BeforeSuite
     public void setAuthSetting(){
-        testDataStorage = TestDataStorage.getStorage();
-        testDataStorage.addTestData().makeAuthSettings();
+        testDataStorage=TestDataStorage.getStorage();
+        testDataStorage.addAuthData().makeAuthSettings();
     }
 
     @BeforeMethod

@@ -10,6 +10,10 @@ import static io.restassured.RestAssured.given;
 public class AuthSettingsUnchecked extends Request implements CrudInterface {
 
     public static final String AUTH_SETTINGS_ENDPOINT = "/app/rest/server/authSettings";
+    public static Boolean isCreated = false;
+    public void setIsCreated(){
+        isCreated=true;
+    }
 
     public AuthSettingsUnchecked(RequestSpecification spec) {
         super(spec);
@@ -17,6 +21,7 @@ public class AuthSettingsUnchecked extends Request implements CrudInterface {
 
     @Override
     public Object create(Object obj) {
+        setIsCreated();
         return null;
     }
 
