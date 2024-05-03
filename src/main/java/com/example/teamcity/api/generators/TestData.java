@@ -1,13 +1,11 @@
 package com.example.teamcity.api.generators;
 
 import com.example.teamcity.api.models.*;
-import com.example.teamcity.api.requests.unchecked.AuthSettingsUnchecked;
 import com.example.teamcity.api.requests.unchecked.ProjectUnchecked;
 import com.example.teamcity.api.requests.unchecked.UserUnchecked;
 import com.example.teamcity.api.spec.Specifications;
 import lombok.Builder;
 import lombok.Data;
-import org.apache.http.HttpStatus;
 
 @Builder
 @Data

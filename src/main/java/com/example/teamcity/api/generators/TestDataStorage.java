@@ -33,9 +33,8 @@ private final List<AuthData> authDataList;
         return  testData;
 
     }
-    public AuthData addAuthData (AuthData authData){
+    public void addAuthData (AuthData authData){
         getStorage().authDataList.add(authData);
-        return authData;
     }
 
     public AuthData addAuthData(){
