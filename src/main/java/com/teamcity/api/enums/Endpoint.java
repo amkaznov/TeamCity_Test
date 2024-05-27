@@ -14,7 +14,8 @@ public enum Endpoint {
     BUILDS("/app/rest/builds", Build.class, null),
     BUILD_TYPES("/app/rest/buildTypes", BuildType.class, BuildType.class),
     USERS("/app/rest/users", User.class, User.class),
-    PROJECTS("/app/rest/projects", Project.class, NewProjectDescription.class);
+    PROJECTS("/app/rest/projects", Project.class, NewProjectDescription.class),
+    AGENT("app/rest/agents",null,null);
 
     private final String url;
     // Все классы, наследующие BaseModel

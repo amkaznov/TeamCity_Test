@@ -16,13 +16,18 @@ import static com.codeborne.selenide.Selenide.element;
 
 public class Page {
     private final SelenideElement submitButton = element(Selectors.byType("submit"));
+    private final SelenideElement submitButtonTypeButton = element("button[type='submit']");
     private final SelenideElement savingWaitingMarker = element(Selectors.byId("saving"));
     private final SelenideElement pageWaitingMarker = element(Selectors.byDataTest("ring-loader"));
+    private final SelenideElement pageWaitingMarkerIcon = element("span[class='ring-loader']");
     private final SelenideElement pageTitle = element(Selectors.byId("restPageTitle"));
 
     public void waitUntilPageIsLoaded() {
-//        pageWaitingMarker.shouldBe(Condition.visible, Duration.ofMinutes(1));
         pageWaitingMarker.shouldNotBe(Condition.visible, Duration.ofMinutes(1));
+    }
+    public void waitUntilPageIsLoadedIcon() {
+        pageWaitingMarkerIcon.shouldBe(Condition.visible, Duration.ofMinutes(1));
+        pageWaitingMarkerIcon.shouldNotBe(Condition.visible, Duration.ofMinutes(1));
     }
     public void waitUntilDataIsSavedIcon() {
         savingWaitingMarker.shouldBe(Condition.visible, Duration.ofSeconds(30));
@@ -32,6 +37,10 @@ public class Page {
     }
     public void clickOnSubmit() {
         submitButton.click();
+        waitUntilDataIsSaved();
+    }
+    public void clickOnSubmitButton() {
+        submitButtonTypeButton.click();
         waitUntilDataIsSaved();
     }
     public void clickOnSubmitAndWait() {

@@ -26,6 +26,8 @@
         <maven-surefire-plugin.version>3.2.3</maven-surefire-plugin.version>
         <aspectj.version>1.9.21</aspectj.version>
         <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
+        <suiteXmlApiFile>testing-suites/api-suite.xml</suiteXmlApiFile>
+        <suiteXmlUiFile>testing-suites/ui-suite.xml</suiteXmlUiFile>
 
     </properties>
 
@@ -121,6 +123,10 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suiteXmlApiFile}</suiteXmlFile>
+                        <suiteXmlFile>${suiteXmlUiFile}</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
                 <dependencies>
                     <dependency>

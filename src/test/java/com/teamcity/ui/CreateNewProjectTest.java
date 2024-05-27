@@ -13,7 +13,8 @@ import org.testng.annotations.Test;
 import static com.teamcity.api.enums.Endpoint.*;
 
 public class CreateNewProjectTest extends BaseUiTest {
-    @Test
+
+    @Test (description = "Authorized User Should Be Able Create New Project By GitHub", groups = {"Regression UI"})
     public void authorizedUserShouldBeAbleCreateNewProjectByGitHub() {
         loginAsUser((User) testData.get(USERS));
         var url = "https://github.com/amkaznov/testTC.git";
@@ -30,7 +31,7 @@ public class CreateNewProjectTest extends BaseUiTest {
 
     }
 
-    @Test
+    @Test (description = "Authorized User Should Be Able Create New Build Configuration By GitHub", groups = {"Regression UI"})
     public void authorizedUserShouldBeAbleCreateNewBuildConfigurationByGitHub() {
         var url = "https://github.com/amkaznov/testTC.git";
         makeProjectAndLogin((NewProjectDescription) testData.get(PROJECTS), (User) testData.get(USERS));
@@ -49,7 +50,7 @@ public class CreateNewProjectTest extends BaseUiTest {
                 .checkPageTitle(((BuildType) testData.get(BUILD_TYPES)).getName());
     }
 
-    @Test
+    @Test (description = "Authorized User Should Be Able Create New Build Configuration By GitHub", groups = {"Regression UI"})
     public void authorizedUserShouldBeAbleCreateNewBuildConfigurationByManually() {
         var url = "https://github.com/amkaznov/testTC.git";
         makeProjectAndLogin((NewProjectDescription) testData.get(PROJECTS), (User) testData.get(USERS));
