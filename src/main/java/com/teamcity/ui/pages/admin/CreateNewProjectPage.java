@@ -56,6 +56,8 @@ public class CreateNewProjectPage extends AdminPage {
         buildTypeNameInput.clear();
         buildTypeNameInput.sendKeys(buildTypeName);
         clickOnSubmit();
+        waitAdminPage();
+
     }
 
     public CreateNewProjectPage setupBuildConfig(String buildTypeName) {
