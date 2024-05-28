@@ -7,8 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ChekLogs
-        uses: jwalton/gh-docker-logs@v2
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -95,10 +93,10 @@ jobs:
 
       - name: Run Api tests
         # Указываем группу, чтобы еще раз не запустить тесты, которые использовались для сетапа сервера и агента
-        run: ./mvnw test -DsuiteXmlFile=testng-suites/api-suite.xml
+        run: ./mvnw test -DsuiteXmlFile=testing-suites/api-suite.xml
 
       - name: Run Ui tests
-        run: ./mvnw test -DsuiteXmlFile=testng-suites/ui-suite.xml
+        run: ./mvnw test -DsuiteXmlFile=testing-suites/ui-suite.xml
 
       - name: Build test report
         uses: simple-elf/allure-report-action@v1.7

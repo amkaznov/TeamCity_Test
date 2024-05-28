@@ -10,6 +10,8 @@ teamcity_agent_container_name="teamcity_agent_instance"
 selenoid_container_name="selenoid_instance"
 selenoid_ui_container_name="selenoid_ui_instance"
 
+max_retry_count="0"
+
 workdir_names=($teamcity_server_workdir $teamcity_agent_workdir $selenoid_workdir)
 container_names=($teamcity_server_container_name $teamcity_agent_container_name $selenoid_container_name $selenoid_ui_container_name)
 
@@ -110,7 +112,7 @@ echo "Run system tests"
 
 ################################
 echo "################################"
-echo "host=$ip:8111\nsuperUserToken=$superuser_token\nremote=http://$ip:4444/wd/hub\nbrowser=chrome" > $teamcity_tests_directory/src/main/resources/config.properties
+echo "host=$ip:8111\nsuperUserToken=$superuser_token\nremote=http://$ip:4444/wd/hub\nbrowser=chrome\nmaxRetryCount=$max_retry_count" > $teamcity_tests_directory/src/main/resources/config.properties
 cat $teamcity_tests_directory/src/main/resources/config.properties
 
 
