@@ -119,3 +119,9 @@ jobs:
         uses: jwalton/gh-docker-logs@v2
         if: always()
 
+      - name: Download surefire-reports
+        uses: actions/download-artifact@v2
+        with:
+          name: surefire-reports
+          path: /home/runner/work/TeamCity_Test/TeamCity_Test/target/surefire-reports
+
