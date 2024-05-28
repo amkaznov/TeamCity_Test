@@ -93,10 +93,10 @@ jobs:
 
       - name: Run Api tests
         # Указываем группу, чтобы еще раз не запустить тесты, которые использовались для сетапа сервера и агента
-        run: ./mvnw test -DsuiteXmlFile=testing-suites/api-suite.xml
+        run: ./mvnw test -Papi-tests
 
       - name: Run Ui tests
-        run: ./mvnw test -DsuiteXmlFile=testing-suites/ui-suite.xml
+        run: ./mvnw test -Pui-tests
 
       - name: Build test report
         uses: simple-elf/allure-report-action@v1.7
