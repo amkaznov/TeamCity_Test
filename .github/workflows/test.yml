@@ -90,10 +90,8 @@ jobs:
       - name: Run Ui tests
         run: ./mvnw test -Pui-tests
 
-      - name: Verify Allure results
-        if: always()
-        run: ls -la target/allure-results
-
+      - name: Copy surefire-reports to gh-pages
+        run: mkdir -p gh-pages/surefire-reports && cp -R target/surefire-reports/* gh-pages/surefire-reports/
 
       - name: Load test report history
         uses: actions/checkout@v4
