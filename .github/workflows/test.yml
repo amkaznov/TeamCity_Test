@@ -41,14 +41,6 @@ jobs:
           -p 4444:4444 \
           aerokube/selenoid:latest-release
 
-      - name: Load test report history
-        uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-
       - name: Run TeamCity server
         # Флаг -u 0 запускает контейнер от имени root, чтобы был доступ на запись файлов в директории, указанные в volume.
         # По-хорошему, надо делать chown -R 1000:1000 на эти директории и запускать контейнер без этого флага,
@@ -98,12 +90,20 @@ jobs:
       - name: Run Ui tests
         run: ./mvnw test -Pui-tests
 
+      - name: Load test report history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
       - name: Build test report
         uses: simple-elf/allure-report-action@master
         if: always()
         id: allure-report
         with:
-          allure_results: build/allure-results
+          allure_results: target/allure-results
           gh_pages: gh-pages
           allure_report: allure-report
           allure_history: allure-history
