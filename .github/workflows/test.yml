@@ -103,7 +103,7 @@ jobs:
           path: gh-pages
 
       - name: Build test report
-        uses: simple-elf/allure-report-action@1.7
+        uses: simple-elf/allure-report-action@master
         if: always()
         id: allure-report
         with:

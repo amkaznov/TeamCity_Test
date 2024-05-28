@@ -123,12 +123,6 @@ cd .. && cd .. && cd ..
 echo "Setup teamcity agent"
 mvn clean test -Dtest=SetupFirstStartTest#setupTeamCityAgentTest
 
-echo "################################"
-echo "Run API tests"
-mvn test -DsuiteXmlFile=testng-suites/api-suite.xml
 
-echo "################################"
-echo "Run UI tests"
-mvn test -DsuiteXmlFile=testng-suites/ui-suite.xml
 
 
