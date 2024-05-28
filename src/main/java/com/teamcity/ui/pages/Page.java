@@ -21,6 +21,7 @@ public class Page {
     private final SelenideElement pageWaitingMarker = element(Selectors.byDataTest("ring-loader"));
     private final SelenideElement pageWaitingMarkerIcon = element("span[class='ring-loader']");
     private final SelenideElement pageTitle = element(Selectors.byId("restPageTitle"));
+    private final SelenideElement userPanel = element(Selectors.byId("userPanel"));
 
     public void waitUntilPageIsLoaded() {
         pageWaitingMarker.shouldNotBe(Condition.visible, Duration.ofMinutes(1));
@@ -34,6 +35,9 @@ public class Page {
     }
     public void waitUntilDataIsSaved() {
         savingWaitingMarker.shouldNotBe(Condition.visible, Duration.ofSeconds(30));
+    }
+    public void waitUserPanelIsLoaded() {
+        userPanel.shouldBe(Condition.visible, Duration.ofSeconds(30));
     }
     public void clickOnSubmit() {
         submitButton.click();

@@ -7,7 +7,6 @@ import com.teamcity.api.models.User;
 import com.teamcity.ui.Selectors;
 import lombok.Getter;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.element;
 
 @Getter
@@ -30,20 +29,16 @@ public class LoginPage extends Page{
     }
 
     public LoginPage openSuperUserAuthPage (){
-        Selenide.open(LOGIN_SUPER_USER_PAGE_URL);
-        waitUntilPageIsLoaded();
-        if ($(loginAsSuperUserButton).isDisplayed()){
-            loginAsSuperUserButton.click();
-        }
+        loginAsSuperUserButton.click();
         waitUntilPageIsLoaded();
         return this;
     }
-    public void loginSuperUser ()  {
+    public LoginPage loginSuperUser ()  {
         waitUntilPageIsLoaded();
         passwordInput.sendKeys(Config.getProperty("superUserToken"));
         clickOnSubmit();
         waitUntilPageIsLoaded();
-
+        return this;
     }
 
 

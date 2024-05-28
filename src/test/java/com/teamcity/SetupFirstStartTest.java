@@ -20,8 +20,10 @@ public class SetupFirstStartTest extends BaseUiTest {
     @Test
     public void setupTeamCityAgentTest() {
         new LoginPage()
+                .open()
                 .openSuperUserAuthPage()
-                .loginSuperUser();
+                .loginSuperUser()
+                .waitUserPanelIsLoaded();
         new AgentPage()
                 .openFirstUnAuthAgent()
                 .authorizeFirstAgent();

@@ -16,12 +16,10 @@ public class AgentPage extends  Page{
         waitUntilPageIsLoaded();
         return this;
     }
-    public AgentPage authorizeFirstAgent(){
+    public void authorizeFirstAgent(){
         authorizeButton.shouldBe(Condition.visible, Duration.ofSeconds(30));
         authorizeButton.click();
         clickOnSubmitButton();
         authorizeButton.shouldBe(Condition.text("Unauthorize"));
-
-        return this;
     }
 }
