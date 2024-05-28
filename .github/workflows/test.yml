@@ -59,7 +59,12 @@ jobs:
           -v $(pwd)/tmp/teamcity_server/logs:/opt/teamcity/logs \
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
-          
+
+        # Выдача прав для Мавена
+      - name: Make mvnw executable
+        run: chmod +x ./mvnw’
+
+
       - name: Set up TeamCity server
         # Настройка сервера при первом запуске (принятие лицензии, выбор базы данных и т.д.), реализованная в виде теста
         run: ./mvnw clean test -Dtest=SetupTest#startUpTest
