@@ -62,7 +62,7 @@ jobs:
 
         # Выдача прав для Мавена
       - name: Make mvnw executable
-        run: chmod +x ./mvnw’
+        run: chmod +x ./mvnw
 
 
       - name: Set up TeamCity server
