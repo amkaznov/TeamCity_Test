@@ -78,7 +78,10 @@ jobs:
             -p 8080:8080 aerokube/selenoid-ui --selenoid-uri "http://$ip:4444"
 
       - name: Setup teamcity server
-        run: mvn clean test -Dtest=SetupFirstStartTest#startUpTest
+        run: |
+          echo -e "host=$ip:8111\nremote=http://$ip:4444/wd/hub\nbrowser=chrome\nmaxRetryCount=0" > src/main/resources/config.properties  
+          cat src/main/resources/config.properties
+          mvn clean test -Dtest=SetupFirstStartTest#startUpTest
 
       - name: Parse superuser token
         run: |
@@ -96,7 +99,7 @@ jobs:
 
       - name: Run system tests
         run: |
-          echo -e "host=$ip:8111\nsuperUserToken=${{ steps.parse_superuser_token.outputs.superuser_token }}\nremote=http://$ip:4444/wd/hub\nbrowser=chrome\nmaxRetryCount=0" > src/main/resources/config.properties
+          echo -e "superUserToken=${{ steps.parse_superuser_token.outputs.superuser_token }}" > src/main/resources/config.properties
           cat src/main/resources/config.properties
           mvn clean test -Dtest=SetupFirstStartTest#setupTeamCityAgentTest
 
