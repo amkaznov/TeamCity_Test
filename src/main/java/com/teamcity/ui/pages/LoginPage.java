@@ -18,8 +18,11 @@ public class LoginPage extends Page{
     private final SelenideElement  loginAsSuperUserButton = element("span[class='greyNote']");
 
     public LoginPage open (){
+        System.out.println("open");
         Selenide.open(LOGIN_PAGE_URL);
+        System.out.println("open");
         return this;
+
     }
 
     public void login (User user)  {
@@ -29,15 +32,19 @@ public class LoginPage extends Page{
     }
 
     public LoginPage openSuperUserAuthPage (){
+        System.out.println("openSuperUserAuthPage");
         loginAsSuperUserButton.click();
         waitUntilPageIsLoaded();
+        System.out.println("openSuperUserAuthPage");
         return this;
     }
     public LoginPage loginSuperUser ()  {
+        System.out.println("LoginSuperUser");
         waitUntilPageIsLoaded();
         passwordInput.sendKeys(Config.getProperty("superUserToken"));
         clickOnSubmit();
         waitUntilPageIsLoaded();
+        System.out.println("LoginSuperUser");
         return this;
     }
 
