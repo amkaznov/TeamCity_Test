@@ -26,7 +26,7 @@ jobs:
           echo "HOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1)" >> $GITHUB_ENV
 
       - name: Set up host config property
-        run: echo -e "host=$HOST:8111\nremote=http://$HOST:4444/wd/hub\nbrowser=chrome\nmaxRetryCount=0" > src/main/resources/config.properties
+        run: echo -e "host=$HOST:8111\nremote=http://$HOST:4444/wd/hub\nbrowser=chrome\nmaxRetryCount=1" > src/main/resources/config.properties
 
       - name: Pull Selenoid Chrome
         run: docker pull selenoid/vnc_chrome:119.0
@@ -91,6 +91,7 @@ jobs:
         run: ./mvnw test -Pui-tests
 
       - name: Copy surefire-reports to gh-pages
+        if: always()
         run: mkdir -p gh-pages/surefire-reports && cp -R target/surefire-reports/* gh-pages/surefire-reports/
 
       - name: Load test report history

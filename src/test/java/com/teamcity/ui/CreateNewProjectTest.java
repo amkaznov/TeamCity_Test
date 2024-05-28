@@ -1,13 +1,11 @@
 package com.teamcity.ui;
 
-import com.codeborne.selenide.Condition;
 import com.teamcity.api.models.BuildType;
 import com.teamcity.api.models.NewProjectDescription;
 import com.teamcity.api.models.User;
 import com.teamcity.ui.pages.ProjectPage;
 import com.teamcity.ui.pages.admin.CreateNewProjectPage;
 import com.teamcity.ui.pages.favorites.ProjectsPage;
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import static com.teamcity.api.enums.Endpoint.*;
@@ -25,9 +23,12 @@ public class CreateNewProjectTest extends BaseUiTest {
                 .setupProject(((NewProjectDescription) testData.get(PROJECTS)).getName(), ((BuildType) testData.get(BUILD_TYPES)).getName());
         new ProjectsPage()
                 .open()
-                .getSubprojects()
-                .stream().reduce((first, second) -> second).get()
-                .getHeader().shouldHave(Condition.text(((NewProjectDescription) testData.get(PROJECTS)).getName()));
+                .checkAndClickSubproject(((NewProjectDescription) testData.get(PROJECTS)).getName());
+//                .getSubprojects()
+//                .stream().reduce((first, second) -> second).get()
+//                .getHeader().shouldHave(Condition.text(((NewProjectDescription) testData.get(PROJECTS)).getName()))
+//                .find(By.cssSelector("h2")).click();
+//               получается не стабильно особенно в ci
 
     }
 
@@ -38,10 +39,7 @@ public class CreateNewProjectTest extends BaseUiTest {
 
         new ProjectsPage()
                 .open()
-                .getSubprojects()
-                .stream().reduce((first, second) -> second).get()
-                .getHeader().shouldHave(Condition.text(((NewProjectDescription) testData.get(PROJECTS)).getName()))
-                .find(By.cssSelector("h2")).click();
+                .checkAndClickSubproject(((NewProjectDescription) testData.get(PROJECTS)).getName());
         new ProjectPage()
                 .openNewBuildConfigMenu();
         new CreateNewProjectPage()
@@ -50,7 +48,7 @@ public class CreateNewProjectTest extends BaseUiTest {
                 .checkPageTitle(((BuildType) testData.get(BUILD_TYPES)).getName());
     }
 
-    @Test (description = "Authorized User Should Be Able Create New Build Configuration By GitHub", groups = {"Regression UI"})
+    @Test (description = "Authorized User Should Be Able Create New Build Configuration By Manually", groups = {"Regression UI"})
     public void authorizedUserShouldBeAbleCreateNewBuildConfigurationByManually() {
         var url = "https://github.com/amkaznov/testTC.git";
         makeProjectAndLogin((NewProjectDescription) testData.get(PROJECTS), (User) testData.get(USERS));
@@ -58,10 +56,7 @@ public class CreateNewProjectTest extends BaseUiTest {
 
         projectsPage
                 .open()
-                .getSubprojects()
-                .stream().reduce((first, second) -> second).get()
-                .getHeader().shouldHave(Condition.text(((NewProjectDescription) testData.get(PROJECTS)).getName()))
-                .find(By.cssSelector("h2")).click();
+                .checkAndClickSubproject(((NewProjectDescription) testData.get(PROJECTS)).getName());
         new ProjectPage()
                 .openNewBuildConfigMenu();
         new CreateNewProjectPage()
