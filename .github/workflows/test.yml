@@ -119,4 +119,5 @@ jobs:
 
       - name: ChekLogs
         uses: jwalton/gh-docker-logs@v2
+        if: always()
 
