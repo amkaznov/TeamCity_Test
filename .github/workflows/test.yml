@@ -32,8 +32,6 @@ jobs:
         run: docker pull selenoid/vnc_chrome:119.0
 
       - name: Run Selenoid
-        # Флаг -d запускает контейнер в фоновом режиме (так как, например, контейнер с сервером не имеет окончания, он просто всегда включен,
-        # и если мы без этого флага в него перейдем, то никогда не сможем перешагнуть к следующему степу
         run: |
           docker run -d --name selenoid \
           -v /var/run/docker.sock:/var/run/docker.sock \
@@ -54,7 +52,6 @@ jobs:
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
-        # Выдача прав для Мавена
       - name: Make mvnw executable
         run: chmod +x ./mvnw
 
@@ -115,6 +112,19 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: allure-history
+
+      - name: Run Swagger coverage
+        if: always()
+        run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i target/swagger-coverage-output
+
+      - name: Save Swagger coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: swagger-coverage
+          path: |
+            swagger-coverage-report.html
+            swagger-coverage-results.json
 
 
       - name: ChekLogs
