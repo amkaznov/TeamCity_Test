@@ -57,12 +57,8 @@ jobs:
       - name: Set up Selenoid server
         run: docker run -d --name selenoid -p 4444:4444 -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd)/config:/etc/selenoid/:ro aerokube/selenoid:latest-release
 
-      #      - name: Run Selenoid UI
-      #        run: |
-      #          docker run -d --name selenoid-ui -p 8080:8080 aerokube/selenoid-ui --selenoid-uri http://$HOST:4444
-
-      - name: Set up teamcity server tests
-        run: mvn clean test -Dtest=SetupFirstStartTest#setupTeamCityServerTest
+      - name: Set up TeamCity server
+        run: ./mvnw clean test -Dtest=SetupFirstStartTest#startUpTest
 
       - name: Set up superUserToken environment variable
         run: |
@@ -74,18 +70,6 @@ jobs:
           echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
           echo $superUserToken
 
-      - name: Run TeamCity agent
-        run: |
-          docker run -e SERVER_URL=http://$HOST:8111 -u 0 -d --name teamcity-agent -v $(pwd)/tmp/teamcity_agent/conf:/data/teamcity_agent/conf jetbrains/teamcity-agent:2024.03
-
-      - name: Set up teamcity Agent tests
-        run: mvn clean test -Dtest=AutirizeAgentTest#autorizeAgentTest
-
-      - name: Run API tests
-        run: mvn clean test -DsuiteXmlFile="testng-suites/api-suite.xml"
-
-      - name: Run UI tests
-        run: mvnac test -DsuiteXmlFile="testng-suites/ui-suite.xml"
 
       - name: ChekLogs
         uses: jwalton/gh-docker-logs@v2
