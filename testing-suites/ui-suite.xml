@@ -1,8 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="UI Suite">
-    <test name="UI Test">
-        <classes>
-            <class name="com.teamcity.ui.CreateNewProjectTest"/>
-        </classes>
-    </test>
-</suite>
