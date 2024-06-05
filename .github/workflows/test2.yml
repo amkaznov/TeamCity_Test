@@ -58,7 +58,7 @@ jobs:
         run: docker run -d --name selenoid -p 4444:4444 -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd)/config:/etc/selenoid/:ro aerokube/selenoid:latest-release
 
       - name: Set up TeamCity server
-        run: mvnw clean test -Dtest=SetupFirstStartTest#startUpTest
+        run: mvn clean test -Dtest=SetupFirstStartTest#startUpTest
 
       - name: Set up superUserToken environment variable
         run: |
