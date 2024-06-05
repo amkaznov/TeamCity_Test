@@ -50,9 +50,9 @@ jobs:
 
       - name: Pull Selenoid images
         run: |
-          docker pull selenoid/vnc_chrome:91.0
-          docker pull selenoid/vnc_firefox:89.0
-          docker pull selenoid/vnc_opera:76.0
+          docker pull selenoid/vnc_chrome:119.0
+          docker pull selenoid/vnc_firefox:120.0.1
+          docker pull selenoid/vnc_opera:105.0
 
       - name: Set up Selenoid server
         run: docker run -d --name selenoid -p 4444:4444 -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd)/config:/etc/selenoid/:ro aerokube/selenoid:latest-release
